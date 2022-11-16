@@ -36,5 +36,32 @@ $box-shadow-sm: 0 0 15px rgba(25, 26, 27, 0.08);
 $box-shadow-lg: 0 0 20px rgba(25, 26, 27, 0.15); 
 $box-shadow: 0 0 4px rgba(95, 105, 234, 0.3); 
 
+$spacer: 1px;
+$spacers: (
+  0: 0,
+  1: $spacer * 1,
+  2: $spacer * 2,
+  3: $spacer * 3,
+  4: $spacer * 4,
+  5: $spacer * 5,
+  6: $spacer * 6,
+  8: $spacer * 8,
+  12: $spacer * 12,
+  16: $spacer * 16,
+  24: $spacer * 24,
+  32: $spacer * 32,
+  40: $spacer * 40,
+  48: $spacer * 48,
+  60: $spacer * 60,
+  80: $spacer * 80
+);
+
+$position-values: (
+  0: 0,
+  5: 5%,
+  50: 50%,
+  100: 100%
+);
+
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";

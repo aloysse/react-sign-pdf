@@ -15,10 +15,14 @@ import {
 import { IconContext } from "react-icons";
 import { colors } from "../common/colors";
 import SignatureModal from "./SignatureModal";
+import DateModal from "./DateModal";
+import InputTextModal from "./InputTextModal";
 
 const SignFile = () => {
   const [previewOpen, setPreviewOpen] = useState(true);
-  const [modalShow, setModalShow] = useState(false);
+  const [SignatureModalShow, setSignatureModalShow] = useState(false);
+  const [DateModalShow, setDateModalShow] = useState(false);
+  const [TextModalShow, setTextModalShow] = useState(false);
 
   // 側選單
   const SideBar = () => (
@@ -28,10 +32,10 @@ const SignFile = () => {
     >
       <div
         className={`${
-          modalShow ? "bg-P2" : ""
+          SignatureModalShow ? "bg-P2" : ""
         } py-16 px-24 text-N6 d-flex align-items-center`}
         style={{ cursor: "pointer" }}
-        onClick={() => setModalShow(true)}
+        onClick={() => setSignatureModalShow(true)}
       >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbPencil className="me-12" />
@@ -39,8 +43,11 @@ const SignFile = () => {
         簽名
       </div>
       <div
-        className="py-16 px-24 text-N6 d-flex align-items-center"
+        className={`${
+          DateModalShow ? "bg-P2" : ""
+        } py-16 px-24 text-N6 d-flex align-items-center`}
         style={{ cursor: "pointer" }}
+        onClick={() => setDateModalShow(true)}
       >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbCalendar className="me-12" />
@@ -49,15 +56,26 @@ const SignFile = () => {
       </div>
 
       <div
-        className="py-16 px-24 text-N6 d-flex align-items-center"
+        className={`${
+          TextModalShow ? "bg-P2" : ""
+        } py-16 px-24 text-N6 d-flex align-items-center`}
         style={{ cursor: "pointer" }}
+        onClick={() => setTextModalShow(true)}
       >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbTextResize className="me-12" />
         </IconContext.Provider>
         文字
       </div>
-      <SignatureModal show={modalShow} onHide={() => setModalShow(false)} />
+      <SignatureModal
+        show={SignatureModalShow}
+        onHide={() => setSignatureModalShow(false)}
+      />
+      <DateModal show={DateModalShow} onHide={() => setDateModalShow(false)} />
+      <InputTextModal
+        show={TextModalShow}
+        onHide={() => setTextModalShow(false)}
+      />
     </div>
   );
 
@@ -142,13 +160,25 @@ const SignFile = () => {
               </Button>
             </ButtonGroup>
             <div className="d-md-none ms-auto">
-              <Button variant="N1" className="me-8">
+              <Button
+                variant={SignatureModalShow ? "P2" : "N1"}
+                className={`${SignatureModalShow ? "text-P1" : ""} me-8`}
+                onClick={() => setSignatureModalShow(true)}
+              >
                 <TbPencil />
               </Button>
-              <Button variant="N1" className="me-8">
+              <Button
+                variant={DateModalShow ? "P2" : "N1"}
+                className={`${DateModalShow ? "text-P1" : ""} me-8`}
+                onClick={() => setDateModalShow(true)}
+              >
                 <TbCalendar />
               </Button>
-              <Button variant="N1" className="me-8">
+              <Button
+                variant={TextModalShow ? "P2" : "N1"}
+                className={`${TextModalShow ? "text-P1" : ""} me-8`}
+                onClick={() => setTextModalShow(true)}
+              >
                 <TbTextResize />
               </Button>
             </div>

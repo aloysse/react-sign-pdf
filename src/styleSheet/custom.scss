@@ -28,6 +28,8 @@ $font-sizes: (
     "caption":12px
 );
 
+
+
 $border-radius:               .25rem;
 $border-radius-sm:            4px;
 $border-radius-lg:            8px;
@@ -56,6 +58,16 @@ $spacers: (
   48: $spacer * 48,
   60: $spacer * 60,
   80: $spacer * 80
+);
+
+$gutters: (
+  0: 0,
+  1: $spacer * 1,
+  2: $spacer * 2,
+  3: $spacer * 3,
+  4: $spacer * 4,
+  32: $spacer * 32,
+  40: $spacer * 40,
 );
 
 $position-values: (

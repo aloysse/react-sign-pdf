@@ -10,7 +10,7 @@ const SignatureModal = (props) => {
   //   彈窗首頁
   const ModalMain = () => (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-      <Modal.Header closeButton className="p-19">
+      <Modal.Header closeButton className="p-19 flex-row-reverse">
         <Nav variant="pills" className="justify-content-center w-100">
           <Nav.Item>
             <Nav.Link eventKey="first">簽名</Nav.Link>
@@ -44,7 +44,8 @@ const SignatureModal = (props) => {
   // 創建簽名
   const CreateSignature = () => (
     <>
-      <Modal.Header closeButton className="p-19">
+      <Modal.Header closeButton className="p-19 flex-row-reverse">
+        <Button variant="P1 text-nowrap text-N1">使用</Button>
         <div className="text-center w-100">創建簽名</div>
       </Modal.Header>
       <Modal.Body className="p-32 text-end">

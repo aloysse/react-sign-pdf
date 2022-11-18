@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav, Button, ButtonGroup } from "react-bootstrap";
 import {
   TbEdit,
@@ -14,33 +14,50 @@ import {
 } from "react-icons/tb";
 import { IconContext } from "react-icons";
 import { colors } from "../common/colors";
+import SignatureModal from "./SignatureModal";
 
 const SignFile = () => {
+  const [previewOpen, setPreviewOpen] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
+
   // 側選單
   const SideBar = () => (
     <div
       className=" d-md-block d-none shadow-sm bg-N1"
       style={{ width: "240px" }}
     >
-      <div className="py-16 px-24 text-N6 d-flex align-items-center">
+      <div
+        className={`${
+          modalShow ? "bg-P2" : ""
+        } py-16 px-24 text-N6 d-flex align-items-center`}
+        style={{ cursor: "pointer" }}
+        onClick={() => setModalShow(true)}
+      >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbPencil className="me-12" />
         </IconContext.Provider>
         簽名
       </div>
-      <div className="py-16 px-24 text-N6 d-flex align-items-center">
+      <div
+        className="py-16 px-24 text-N6 d-flex align-items-center"
+        style={{ cursor: "pointer" }}
+      >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbCalendar className="me-12" />
         </IconContext.Provider>
         日期
       </div>
 
-      <div className="py-16 px-24 text-N6 d-flex align-items-center">
+      <div
+        className="py-16 px-24 text-N6 d-flex align-items-center"
+        style={{ cursor: "pointer" }}
+      >
         <IconContext.Provider value={{ size: "1.5em", color: colors.N6 }}>
           <TbTextResize className="me-12" />
         </IconContext.Provider>
         文字
       </div>
+      <SignatureModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 
@@ -78,16 +95,20 @@ const SignFile = () => {
         </IconContext.Provider>
         <span className=" rounded bg-P2 py-2 px-4">產品教學</span>
       </div>
-      <div>
-        <IconContext.Provider value={{ color: colors.N6 }}>
-          <TbEye />
-        </IconContext.Provider>
-        <span className="ms-6 text-N6">預覽</span>
-      </div>
+      <Nav.Item>
+        <Nav.Link onClick={() => setPreviewOpen(!previewOpen)}>
+          <IconContext.Provider value={{ color: colors.N6 }}>
+            <TbEye />
+          </IconContext.Provider>
+          <span className="ms-6 text-N6">預覽</span>
+        </Nav.Link>
+      </Nav.Item>
 
       {/* 縮圖區塊 */}
       <div
-        className="position-absolute end-0 top-100 bg-N1 py-24 px-16"
+        className={`${
+          previewOpen ? "d-block" : "d-none"
+        } position-absolute end-0 top-100 bg-N1 py-24 px-16`}
         style={{ width: "224px" }}
       >
         <div className="d-flex justify-content-between mb-19">

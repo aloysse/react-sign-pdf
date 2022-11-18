@@ -1,30 +1,18 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  HashRouter,
-  Route,
-  Routes,
-  Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TbChevronLeft } from "react-icons/tb";
-import {
-  Nav,
-  Button,
-  Form,
-  ToggleButtonGroup,
-  ToggleButton,
-  Card,
-} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
-const NameFile = () => {
+const NameFile = (setStep) => {
   return (
-    <div class="vw-100 py-32 pt-md-80 ">
+    <div className="vw-100 py-32 pt-md-80 ">
       {/* inner */}
       <div className="bg-N1 w-md-75 px-16 py-24 m-auto rounded">
         {/* body */}
         <Link
           to="/"
           className="fw-normal text-decoration-none d-flex align-items-center mb-24 fw-bold"
+          onClick={() => setStep("upload")}
         >
           <TbChevronLeft />
           上一步

@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import errorImg from "../assets/img/error.svg";
 import { Nav } from "react-bootstrap";
 import { TbX } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
-const UploadFile = () => {
+const UploadFile = ({ step, setStep }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    switch (step) {
+      case "upload": {
+        navigate("/");
+        break;
+      }
+      default: {
+        navigate("/");
+        break;
+      }
+    }
+  }, []);
+
   //   上傳失敗 Alert
   const UploadFailAlert = () => (
     <div
@@ -22,7 +38,7 @@ const UploadFile = () => {
   );
 
   return (
-    <div class="vw-100 py-32 pt-md-80 ">
+    <div className="vw-100 py-32 pt-md-80 ">
       <UploadFailAlert />
 
       {/* inner */}

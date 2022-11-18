@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import {
-  Nav,
-  Button,
-  Form,
-  ToggleButtonGroup,
-  ToggleButton,
-  Card,
-  Modal,
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { GrCircleQuestion } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import { colors } from "../common/colors.js";
 import Notifications from "./Notifications.js";
+import { Link } from "react-router-dom";
 
-const StepsBar = ({ num, text, current }) => {
+const StepsBar = ({ step, setStep }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const StepItem = ({ num, text, current }) => (
@@ -36,16 +29,90 @@ const StepsBar = ({ num, text, current }) => {
     </div>
   );
 
+  const ButtonGroup = ({ preButton, nextButton, current, setStep }) => {
+    let preStep = "";
+    let nextStep = "";
+    switch (current) {
+      case "upload": {
+        nextStep = "name";
+        break;
+      }
+      case "name": {
+        preStep = "upload";
+        nextStep = "sign";
+        break;
+      }
+      case "sign": {
+        preStep = "name";
+        nextStep = "download";
+        break;
+      }
+      case "download": {
+        preStep = "sign";
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return (
+      <>
+        <Link
+          to={step === "name" ? { pathname: "/" } : { pathname: `/${preStep}` }}
+        >
+          <Button
+            variant="outline-P1"
+            className="fs-P1 d-flex align-items-center  ms-32"
+            onClick={
+              current === "upload"
+                ? () => setModalShow(true)
+                : () => setStep(preStep)
+            }
+          >
+            {preButton}
+          </Button>
+        </Link>
+        <Link to={{ pathname: `/${nextStep}` }}>
+          <Button
+            variant="P1"
+            className="text-N1 ms-16"
+            onClick={
+              current === "download" ? () => {} : () => setStep(nextStep)
+            }
+          >
+            {nextButton}
+          </Button>
+        </Link>
+      </>
+    );
+  };
+
   return (
     <div
       className="bg-N1 d-flex flex-md-row flex-column px-32 py-16 shadow-sm align-items-md-center"
       style={{ zIndex: "6" }}
     >
       <div className="d-flex align-items-center flex-fill">
-        <StepItem num={"1"} text={"上傳檔案"} current={true} />
-        <StepItem num={"2"} text={"確認上傳檔案"} current={false} />
-        <StepItem num={"3"} text={"製作簽署檔案"} current={false} />
-        <StepItem num={"4"} text={"下載簽署檔案"} current={false} />
+        <StepItem
+          num={"1"}
+          text={"上傳檔案"}
+          current={step === "upload" ? true : false}
+        />
+        <StepItem
+          num={"2"}
+          text={"確認上傳檔案"}
+          current={step === "name" ? true : false}
+        />
+        <StepItem
+          num={"3"}
+          text={"製作簽署檔案"}
+          current={step === "sign" ? true : false}
+        />
+        <StepItem
+          num={"4"}
+          text={"下載簽署檔案"}
+          current={step === "download" ? true : false}
+        />
         <IconContext.Provider
           value={{
             color: colors.N6,
@@ -58,16 +125,12 @@ const StepsBar = ({ num, text, current }) => {
         <span className="me-auto text-N7 fs-H5 d-block d-md-none">
           上傳檔案
         </span>
-        <Button
-          variant="outline-P1"
-          className="fs-P1 d-flex align-items-center  ms-32"
-          onClick={() => setModalShow(true)}
-        >
-          取消
-        </Button>
-        <Button variant="P1" className="text-N1 ms-16">
-          下一步
-        </Button>
+        <ButtonGroup
+          preButton={"取消"}
+          nextButton={step !== "download" ? "下一步" : "下載檔案"}
+          current={step}
+          setStep={setStep}
+        />
       </div>
       <Notifications show={modalShow} onHide={() => setModalShow(false)} />
     </div>

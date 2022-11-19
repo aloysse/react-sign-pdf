@@ -8,8 +8,6 @@ import facebookBlue from "../assets/img/facebook-blue.svg";
 import googleBlue from "../assets/img/google-blue.svg";
 import loginBG from "../assets/img/undraw_contract_re_ves91.svg";
 import { useNavigate } from "react-router-dom";
-import { auth, provide } from "../config/firebase";
-import { signInWithPopup } from "firebase/auth";
 import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {

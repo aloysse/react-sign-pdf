@@ -12,18 +12,20 @@ import { IconContext } from "react-icons";
 import emptyState from "../assets/img/empty_state.svg";
 import DashboardNavbar from "../components/DashboardNavbar.js";
 import FileCard from "../components/FileCard.js";
+import { auth } from "../config/firebase.js";
+import { UserAuth } from "../context/AuthContext.js";
 
 const Dashboard = () => {
+  const { user } = UserAuth();
+  const userName = user?.displayName;
+  const userPhoto = user.photoURL;
+
   const [radioValue, setRadioValue] = useState("1");
   const [file, setFile] = useState(true);
 
-  useEffect(() => {
-    console.log(radioValue);
-  }, [radioValue]);
-
   return (
     <div className="bg-N2 min-vh-100 min-vw-100">
-      <DashboardNavbar />
+      <DashboardNavbar userName={userName} userPhoto={userPhoto} />
       <div className="p-32 h-100">
         {/* 檔案篩選bar start */}
         <div className="border-bottom border-N4 d-flex pb-16">

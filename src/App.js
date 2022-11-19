@@ -7,6 +7,8 @@ import UploadFile from "./pages/UploadFile";
 import NameFile from "./pages/NameFile";
 import SignFile from "./pages/SignFile";
 import DownloadFile from "./pages/DownloadFile";
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoutes from "./untils/ProtectedRoutes";
 
 function App() {
   return (
@@ -14,15 +16,18 @@ function App() {
       {/* <Flow /> */}
       <Router>
         {/* main section start */}
-
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/files" element={<Dashboard />} />
-          <Route path="/upload" element={<UploadFile />} />
-          <Route path="/name" element={<NameFile />} />
-          <Route path="/sign" element={<SignFile />} />
-          <Route path="/download" element={<DownloadFile />} />
-        </Routes>
+        <AuthContextProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/files" element={<Dashboard />} />
+            </Route>
+            <Route path="/upload" element={<UploadFile />} />
+            <Route path="/name" element={<NameFile />} />
+            <Route path="/sign" element={<SignFile />} />
+            <Route path="/download" element={<DownloadFile />} />
+          </Routes>
+        </AuthContextProvider>
       </Router>
     </>
   );

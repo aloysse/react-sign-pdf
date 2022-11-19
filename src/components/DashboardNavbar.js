@@ -5,7 +5,7 @@ import { GrCircleQuestion } from "react-icons/gr";
 import { FaCaretDown } from "react-icons/fa";
 import { TbPlus } from "react-icons/tb";
 
-const DashboardNavbar = () => {
+const DashboardNavbar = ({ userName, userPhoto }) => {
   return (
     <>
       <div
@@ -30,8 +30,13 @@ const DashboardNavbar = () => {
         </Nav>
         <div className="d-flex align-items-center">
           <GrCircleQuestion className="me-32" />
-          <img style={{ width: "36px" }} className="me-8" src="" alt="" />
-          <div className="me-12">Jenny Wu</div>
+          <img
+            style={{ width: "36px" }}
+            className="me-8 rounded-pill"
+            src={userPhoto}
+            alt=""
+          />
+          <div className="me-12">{userName}</div>
           <FaCaretDown />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/img/Logo.svg";
 import { Nav, Form, Button } from "react-bootstrap";
 import { TbMail, TbLock } from "react-icons/tb";
@@ -7,8 +7,29 @@ import { colors } from "../common/colors.js";
 import facebookBlue from "../assets/img/facebook-blue.svg";
 import googleBlue from "../assets/img/google-blue.svg";
 import loginBG from "../assets/img/undraw_contract_re_ves91.svg";
+import { useNavigate } from "react-router-dom";
+import { auth, provide } from "../config/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { googleSignIn, user } = UserAuth();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/files");
+    }
+  }, [user]);
+
   return (
     <div className="position-relative bg-P2 vw-100 min-vh-100 p-32">
       <img
@@ -45,7 +66,11 @@ const Login = () => {
               src={facebookBlue}
               alt="login with facebook"
             />
-            <img src={googleBlue} alt="login with booble" />
+            <img
+              src={googleBlue}
+              alt="login with booble"
+              onClick={handleGoogleSignIn}
+            />
           </div>
           <div className="d-flex align-items-center mb-32">
             <span className="border-top  border-N2 h-50 flex-fill" />
@@ -60,13 +85,14 @@ const Login = () => {
               <Form.Control
                 type="email"
                 placeholder="請輸入您的電子信箱"
-                className="ps-32"
+                className="ps-40"
               />
               <IconContext.Provider
                 value={{
                   color: colors.P1,
                   size: "1.2em",
-                  className: "position-absolute top-0",
+                  className:
+                    "position-absolute top-50 translate-middle-y ms-12",
                 }}
               >
                 <TbMail />
@@ -80,13 +106,14 @@ const Login = () => {
               <Form.Control
                 type="password"
                 placeholder="請輸入您的密碼"
-                className="ps-32"
+                className="ps-40"
               />
               <IconContext.Provider
                 value={{
                   color: colors.P1,
                   size: "1.2em",
-                  className: "position-absolute top-0",
+                  className:
+                    "position-absolute top-50 translate-middle-y ms-12",
                 }}
               >
                 <TbLock />

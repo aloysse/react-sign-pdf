@@ -114,5 +114,9 @@ $utilities: (
     white-space: nowrap;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";

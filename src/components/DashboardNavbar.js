@@ -1,18 +1,28 @@
 import React from "react";
-import { Nav, Button } from "react-bootstrap";
+import { Nav, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import logo from "../assets/img/Logo.svg";
 import { GrCircleQuestion } from "react-icons/gr";
 import { FaCaretDown } from "react-icons/fa";
 import { TbPlus } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
-const DashboardNavbar = ({ userName, userPhoto }) => {
+const DashboardNavbar = ({ userName, userPhoto, logOut }) => {
+  const userPopover = (
+    <Popover id="popover-basic">
+      <Popover.Body className="p-12 fw-bold pointer" onClick={logOut}>
+        登出
+      </Popover.Body>
+    </Popover>
+  );
+
   return (
     <>
       <div
         className="bg-N1 d-flex justify-content-between px-32 py-16 shadow-sm"
         style={{ zIndex: "6" }}
       >
+        {/* 上排
+        除了載入會員資料及登出功能外，其餘尚無作用 */}
         <img style={{ width: "89px" }} src={logo} alt="點點簽logo" />
         <Nav className="justify-content-center" activeKey="/home">
           <Nav.Item>
@@ -38,10 +48,19 @@ const DashboardNavbar = ({ userName, userPhoto }) => {
             alt=""
           />
           <div className="me-12">{userName}</div>
-          <FaCaretDown />
+          <OverlayTrigger
+            trigger="click"
+            placement="bottom"
+            overlay={userPopover}
+          >
+            <div>
+              <FaCaretDown />
+            </div>
+          </OverlayTrigger>
         </div>
       </div>
 
+      {/* 下排 */}
       <div
         className="bg-N1 d-flex justify-content-between px-32 py-19"
         style={{ zIndex: "2" }}

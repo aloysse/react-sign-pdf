@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { colors } from "../common/colors.js";
-import {
-  Nav,
-  Button,
-  Form,
-  ToggleButtonGroup,
-  ToggleButton,
-} from "react-bootstrap";
-import { TbPlus, TbList, TbLayoutGrid, TbDotsVertical } from "react-icons/tb";
+import { Form, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { TbList, TbLayoutGrid } from "react-icons/tb";
 import { IconContext } from "react-icons";
 import emptyState from "../assets/img/empty_state.svg";
 import DashboardNavbar from "../components/DashboardNavbar.js";
 import FileCard from "../components/FileCard.js";
-import { auth } from "../config/firebase.js";
 import { UserAuth } from "../context/AuthContext.js";
 
 const Dashboard = () => {
-  const { user } = UserAuth();
+  const { user, logOut } = UserAuth();
   const userName = user?.displayName;
   const userPhoto = user.photoURL;
 
   const [radioValue, setRadioValue] = useState("1");
   const [file, setFile] = useState(true);
 
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-N2 min-vh-100 min-vw-100">
-      <DashboardNavbar userName={userName} userPhoto={userPhoto} />
+      <DashboardNavbar
+        userName={userName}
+        userPhoto={userPhoto}
+        logOut={handleLogOut}
+      />
       <div className="p-32 h-100">
         {/* 檔案篩選bar start */}
         <div className="border-bottom border-N4 d-flex pb-16">

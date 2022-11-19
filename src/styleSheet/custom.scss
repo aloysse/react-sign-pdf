@@ -91,7 +91,10 @@ $utilities: (
       50: 50%,
       75: 75%,
       100: 100%,
-      auto: auto
+      auto: auto,
+      40px: 40px,
+      20px: 20px
+      
     )
   ),
   "height": (
@@ -107,6 +110,9 @@ $utilities: (
     )
   ),
 );
+.btn{
+    white-space: nowrap;
+}
 
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";

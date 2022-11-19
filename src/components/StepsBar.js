@@ -9,22 +9,23 @@ import { Link } from "react-router-dom";
 const StepsBar = ({ step, setStep }) => {
   const [modalShow, setModalShow] = useState(false);
 
-  const StepItem = ({ num, text, current }) => (
+  const StepItem = ({ num, text, current, lastItem }) => (
     <div className="fs-P2 d-inline-flex align-items-center me-16">
       <span
         className={`${
           current ? "bg-P1" : "bg-N5"
-        } text-N1 d-inline-flex justify-content-center rounded-pill me-8`}
+        } text-N1 d-inline-flex justify-content-center rounded-pill me-lg-8`}
         style={{ width: "1.5em", height: "1.5em" }}
       >
         {num}
       </span>
-      <span className={`${current ? "" : "text-N5"} d-none d-md-inline`}>
+      <span className={`${current ? "" : "text-N5"} d-none d-lg-inline`}>
         {text}
       </span>
       <span
-        className="border-top border-N4 d-inline-block ms-16"
-        style={{ width: "40px" }}
+        className={`border-top border-N4 ms-16 w-lg-40px w-20px ${
+          lastItem ? "d-none" : "d-inline-block"
+        }`}
       />
     </div>
   );
@@ -112,6 +113,7 @@ const StepsBar = ({ step, setStep }) => {
           num={"4"}
           text={"下載簽署檔案"}
           current={step === "download" ? true : false}
+          lastItem={true}
         />
         <IconContext.Provider
           value={{

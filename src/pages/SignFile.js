@@ -14,12 +14,13 @@ import {
 } from "react-icons/tb";
 import { IconContext } from "react-icons";
 import { colors } from "../common/colors";
-import SignatureModal from "./SignatureModal";
-import DateModal from "./DateModal";
-import InputTextModal from "./InputTextModal";
+import SignatureModal from "../components/SignatureModal";
+import DateModal from "../components/DateModal";
+import InputTextModal from "../components/InputTextModal";
+import StepsBar from "../components/StepsBar";
 
 const SignFile = () => {
-  const [previewOpen, setPreviewOpen] = useState(true);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [SignatureModalShow, setSignatureModalShow] = useState(false);
   const [DateModalShow, setDateModalShow] = useState(false);
   const [TextModalShow, setTextModalShow] = useState(false);
@@ -140,50 +141,53 @@ const SignFile = () => {
   );
 
   return (
-    <div className="h-100 d-flex flex-column flex-fill">
-      <NavBar />
-      <div className="d-flex flex-fill">
-        <SideBar />
+    <div className="bg-N2 min-vh-100 min-vw-100 d-flex flex-column">
+      <StepsBar currentStep={"sign"} />
+      <div className="h-100 d-flex flex-column flex-fill">
+        <NavBar />
+        <div className="d-flex flex-fill">
+          <SideBar />
 
-        {/* 右側文件區塊 */}
-        <div className="flex-fill bg-N2 py-md-24 px-md-32 p-16">
-          <div className="d-flex">
-            <ButtonGroup aria-label="Basic example" className="mb-24">
-              <Button variant="N1">
-                <TbPlus />
-              </Button>
-              <Button variant="N1">
-                <TbMinus />
-              </Button>
-              <Button variant="N1">
-                <TbMinimize />
-              </Button>
-            </ButtonGroup>
-            <div className="d-md-none ms-auto">
-              <Button
-                variant={SignatureModalShow ? "P2" : "N1"}
-                className={`${SignatureModalShow ? "text-P1" : ""} me-8`}
-                onClick={() => setSignatureModalShow(true)}
-              >
-                <TbPencil />
-              </Button>
-              <Button
-                variant={DateModalShow ? "P2" : "N1"}
-                className={`${DateModalShow ? "text-P1" : ""} me-8`}
-                onClick={() => setDateModalShow(true)}
-              >
-                <TbCalendar />
-              </Button>
-              <Button
-                variant={TextModalShow ? "P2" : "N1"}
-                className={`${TextModalShow ? "text-P1" : ""} me-8`}
-                onClick={() => setTextModalShow(true)}
-              >
-                <TbTextResize />
-              </Button>
+          {/* 右側文件區塊 */}
+          <div className="flex-fill bg-N2 py-md-24 px-md-32 p-16">
+            <div className="d-flex">
+              <ButtonGroup aria-label="Basic example" className="mb-24">
+                <Button variant="N1">
+                  <TbPlus />
+                </Button>
+                <Button variant="N1">
+                  <TbMinus />
+                </Button>
+                <Button variant="N1">
+                  <TbMinimize />
+                </Button>
+              </ButtonGroup>
+              <div className="d-md-none ms-auto">
+                <Button
+                  variant={SignatureModalShow ? "P2" : "N1"}
+                  className={`${SignatureModalShow ? "text-P1" : ""} me-8`}
+                  onClick={() => setSignatureModalShow(true)}
+                >
+                  <TbPencil />
+                </Button>
+                <Button
+                  variant={DateModalShow ? "P2" : "N1"}
+                  className={`${DateModalShow ? "text-P1" : ""} me-8`}
+                  onClick={() => setDateModalShow(true)}
+                >
+                  <TbCalendar />
+                </Button>
+                <Button
+                  variant={TextModalShow ? "P2" : "N1"}
+                  className={`${TextModalShow ? "text-P1" : ""} me-8`}
+                  onClick={() => setTextModalShow(true)}
+                >
+                  <TbTextResize />
+                </Button>
+              </div>
             </div>
+            <div className="bg-N1 w-75 h-75"></div>
           </div>
-          <div className="bg-N1 w-75 h-75"></div>
         </div>
       </div>
     </div>

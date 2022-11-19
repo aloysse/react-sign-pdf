@@ -6,7 +6,8 @@ import { colors } from "../common/colors.js";
 import Notifications from "./Notifications.js";
 import { Link } from "react-router-dom";
 
-const StepsBar = ({ step, setStep }) => {
+const StepsBar = ({ currentStep }) => {
+  const [step, setStep] = useState(currentStep);
   const [modalShow, setModalShow] = useState(false);
 
   const StepItem = ({ num, text, current, lastItem }) => (
@@ -58,9 +59,7 @@ const StepsBar = ({ step, setStep }) => {
     }
     return (
       <>
-        <Link
-          to={step === "name" ? { pathname: "/" } : { pathname: `/${preStep}` }}
-        >
+        <Link to={step === "upload" ? {} : { pathname: `/${preStep}` }}>
           <Button
             variant="outline-P1"
             className="fs-P1 d-flex align-items-center  ms-32"

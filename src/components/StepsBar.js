@@ -4,11 +4,12 @@ import { GrCircleQuestion } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import { colors } from "../common/colors.js";
 import Notifications from "./Notifications.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const StepsBar = ({ currentStep }) => {
   const [step, setStep] = useState(currentStep);
   const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate();
 
   const StepItem = ({ num, text, current, lastItem }) => (
     <div className="fs-P2 d-inline-flex align-items-center me-16">
@@ -59,19 +60,17 @@ const StepsBar = ({ currentStep }) => {
     }
     return (
       <>
-        <Link to={step === "upload" ? {} : { pathname: `/${preStep}` }}>
-          <Button
-            variant="outline-P1"
-            className="fs-P1 d-flex align-items-center  ms-32"
-            onClick={
-              current === "upload"
-                ? () => setModalShow(true)
-                : () => setStep(preStep)
-            }
-          >
-            {preButton}
-          </Button>
-        </Link>
+        <Button
+          variant="outline-P1"
+          className="fs-P1 d-flex align-items-center  ms-32"
+          onClick={
+            current === "download"
+              ? () => navigate("/")
+              : () => setModalShow(true)
+          }
+        >
+          {preButton}
+        </Button>
         <Link to={{ pathname: `/${nextStep}` }}>
           <Button
             variant="P1"
@@ -127,13 +126,17 @@ const StepsBar = ({ currentStep }) => {
           上傳檔案
         </span>
         <ButtonGroup
-          preButton={"取消"}
+          preButton={step !== "download" ? "取消" : "返回主頁"}
           nextButton={step !== "download" ? "下一步" : "下載檔案"}
           current={step}
           setStep={setStep}
         />
       </div>
-      <Notifications show={modalShow} onHide={() => setModalShow(false)} />
+      <Notifications
+        currentStep={currentStep}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 };

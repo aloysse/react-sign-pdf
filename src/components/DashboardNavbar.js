@@ -4,6 +4,7 @@ import logo from "../assets/img/Logo.svg";
 import { GrCircleQuestion } from "react-icons/gr";
 import { FaCaretDown } from "react-icons/fa";
 import { TbPlus } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 const DashboardNavbar = ({ userName, userPhoto }) => {
   return (
@@ -87,13 +88,15 @@ const DashboardNavbar = ({ userName, userPhoto }) => {
             </Nav.Link>
           </Nav.Item>
         </Nav>
-        <Button
-          variant="P1"
-          className="text-N1 fs-P1 d-flex align-items-center"
-        >
-          新增
-          <TbPlus className="ms-8" />
-        </Button>
+        <Link to="/upload">
+          <Button
+            variant="P1"
+            className="text-N1 fs-P1 d-flex align-items-center"
+          >
+            新增
+            <TbPlus className="ms-8" />
+          </Button>
+        </Link>
       </div>
     </>
   );

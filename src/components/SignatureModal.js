@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Modal, Button, Tab, Nav } from "react-bootstrap";
 import { TbPlus } from "react-icons/tb";
 import { GrCircleQuestion } from "react-icons/gr";
+import SignatureCanvas from "react-signature-canvas";
 
 const SignatureModal = (props) => {
+  const sigCanvas = useRef({});
   const [IsSign, setIsSign] = useState(false);
   const [penColor, setPenColor] = useState("black");
+
+  // 清除簽名
+  const clearSignature = () => sigCanvas.current.clear();
+  const applySignature = () => {
+    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/ong"));
+    // console.log(imageURL);
+    // localStorage.setItem("img", showImg.src);
+  };
 
   //   彈窗首頁
   const ModalMain = () => (
@@ -50,13 +60,19 @@ const SignatureModal = (props) => {
       </Modal.Header>
       <Modal.Body className="p-32 text-end">
         <GrCircleQuestion className="mb-16" />
-        <div
-          className="w-100 rounded border border-N4 bg-N2"
-          style={{ height: "100px" }}
-        ></div>
+
+        {/* 簽名區 */}
+        <SignatureCanvas
+          ref={sigCanvas}
+          penColor={penColor}
+          canvasProps={{
+            height: 200,
+            className: "sigCanvas w-100 rounded border border-N4 bg-N2",
+          }}
+        />
       </Modal.Body>
       <Modal.Footer className="p-24 justify-content-start">
-        <div className="text-P1 me-32" style={{ cursor: "pointer" }}>
+        <div className="text-P1 me-32 pointer" onClick={clearSignature}>
           清除
         </div>
         <div

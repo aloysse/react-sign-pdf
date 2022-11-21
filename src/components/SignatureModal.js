@@ -13,9 +13,9 @@ const SignatureModal = (props) => {
   const clearSignature = () => sigCanvas.current.clear();
   // const applySignature = () => {
   //   setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/ong"));
-    // console.log(imageURL);
-    // localStorage.setItem("img", showImg.src);
-  };
+  // console.log(imageURL);
+  // localStorage.setItem("img", showImg.src);
+  // };
 
   //   彈窗首頁
   const ModalMain = () => (

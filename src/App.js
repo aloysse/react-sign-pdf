@@ -9,6 +9,7 @@ import SignFile from "./pages/SignFile";
 import DownloadFile from "./pages/DownloadFile";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoutes from "./untils/ProtectedRoutes";
+import { PdfContextProvider } from "./context/PdfContext";
 
 function App() {
   return (
@@ -17,16 +18,18 @@ function App() {
       <Router>
         {/* main section start */}
         <AuthContextProvider>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/files" element={<Dashboard />} />
-            </Route>
-            <Route path="/upload" element={<UploadFile />} />
-            <Route path="/name" element={<NameFile />} />
-            <Route path="/sign" element={<SignFile />} />
-            <Route path="/download" element={<DownloadFile />} />
-          </Routes>
+          <PdfContextProvider>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/files" element={<Dashboard />} />
+                <Route path="/upload" element={<UploadFile />} />
+                <Route path="/name" element={<NameFile />} />
+                <Route path="/sign" element={<SignFile />} />
+                <Route path="/download" element={<DownloadFile />} />
+              </Route>
+            </Routes>
+          </PdfContextProvider>
         </AuthContextProvider>
       </Router>
     </>

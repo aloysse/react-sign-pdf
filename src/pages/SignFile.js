@@ -18,12 +18,23 @@ import SignatureModal from "../components/SignatureModal";
 import DateModal from "../components/DateModal";
 import InputTextModal from "../components/InputTextModal";
 import StepsBar from "../components/StepsBar";
+import { Document, Page, pdfjs } from "react-pdf";
+import { PdfFile } from "../context/PdfContext";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const SignFile = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [SignatureModalShow, setSignatureModalShow] = useState(false);
   const [DateModalShow, setDateModalShow] = useState(false);
   const [TextModalShow, setTextModalShow] = useState(false);
+  const [totalPage, setTotalPage] = useState(1);
+  const { pdfURL, setPdfURL } = PdfFile();
+  console.log(pdfURL);
+
+  // 成功讀PDF後的動作
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setTotalPage(numPages); //定總頁數
+  };
 
   // 側選單
   const SideBar = () => (
@@ -186,7 +197,25 @@ const SignFile = () => {
                 </Button>
               </div>
             </div>
-            <div className="bg-N1 w-75 h-75"></div>
+
+            {/* PDF顯示區塊 */}
+            <Document
+              file={pdfURL} //檔案路徑
+              onLoadSuccess={onDocumentLoadSuccess} //成功載入文件後呼叫
+              renderMode="canvas" //定義文件呈現的形式
+            >
+              {new Array(totalPage).fill("").map((item, index) => {
+                return (
+                  <Page
+                    key={index}
+                    pageNumber={index + 1}
+                    renderTextLayer={false} //不宣染文字content
+                    renderAnnotationLayer={false} //渲染連結
+                    className="mb-12"
+                  />
+                );
+              })}
+            </Document>
           </div>
         </div>
       </div>

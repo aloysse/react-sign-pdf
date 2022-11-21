@@ -1,5 +1,6 @@
 {
-  "name": "f2e-w2",
+  "name": "react-sign-pdf",
+  "homepage": "https://hexschool.github.io/react-daily-task-router",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

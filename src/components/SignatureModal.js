@@ -11,8 +11,8 @@ const SignatureModal = (props) => {
 
   // 清除簽名
   const clearSignature = () => sigCanvas.current.clear();
-  const applySignature = () => {
-    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/ong"));
+  // const applySignature = () => {
+  //   setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/ong"));
     // console.log(imageURL);
     // localStorage.setItem("img", showImg.src);
   };
